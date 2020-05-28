@@ -113,17 +113,17 @@ Thing 4) Keyboard
  */
 
 /*
-Thing 10)
+Thing 10)Mixer
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Faders
+    2) EQs
+    3) Sends
+    4) Matrices
+    5) Meters
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Group channels
+    2) Compress signal level
+    3) Add effects
  */
 
 /*
