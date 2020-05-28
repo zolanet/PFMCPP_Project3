@@ -53,59 +53,59 @@ Thing: Car Wash
  */
 
 /*
-Thing 1)
+Thing 1) Shoe
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) number of eyelets
+    2) sole material
+    3) tongue length
+    4) heel height
+    5) laces length
 3 things it can do:
-    1)
-    2)
-    3)
+    1) holds ankle steady
+    2) keeps feet warm
+    3) makes you run faster
  */
 
 /*
-Thing 2)
+Thing 2) Punch clock
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Time of day
+    2) Day of year
+    3) Punch button
+    4) punch card slit
+    5) lock
 3 things it can do:
-    1)
-    2)
-    3)
+    1) log punch-in time
+    2) log break time
+    3) log punch-out time
  */
 
 /*
-Thing 3)
+Thing 3) Fridge
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) number of Doors
+    2) number of Drawers
+    3) number of Shelves
+    4) temperature control
+    5) humidity control
 3 things it can do:
-    1)
-    2)
-    3)
+    1) keeps food cool
+    2) keeps produce crisp
+    3) organise food in categories
  */
 
 /*
-Thing 4)
+Thing 4) Keyboard
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) number of notes
+    2) number of rotary encoders
+    3) pitch bend
+    4) mod wheel
+    5) octave shift buttons
 3 things it can do:
-    1)
-    2)
-    3)
+    1) play notes according to velocity
+    2) send control change messages
+    3) determine bote length according to time held
  */
 
 
