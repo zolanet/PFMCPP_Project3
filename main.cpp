@@ -142,11 +142,11 @@ struct Shoe
     double laceLength = 12.5;
 
     //1) holds ankle steady
-    void holdAnkleSteady( bool isSteady = false);
+    bool holdAnkleSteady( bool isSteady = false);
     //2) keeps feet warm
-    void keepFeetWarm(float footTemperature = 37.2f);
+    float keepFeetWarm(float footTemperature = 37.2f);
     //3) makes you run faster
-    void runFast(int runningSpeed = 10);
+    int runFast(int runningSpeed = 10);
 
 };
 /*
@@ -186,7 +186,7 @@ struct PunchClock
 
         void workedAtStation(int dayOfWeek = 1, char station= 'a');
         void chores(bool mop = true, bool trashEmptied = false);
-        void daysSick(bool justified, int daysTotal);
+        int daysSick(bool justified, int daysTotal);
     };
 
     //1) log punch-in time
@@ -264,9 +264,9 @@ struct Keyboard
         bool instrBypassIsOn = false;
         bool midiReceived = false;
 
-        void receiveMidi(int aInstrChannel = 12, bool aMidiReceived = true);
+        bool receiveMidi(int aInstrChannel = 12, bool aMidiReceived = true);
         void recordPreset(int aPresetSlot = 7, std::string aPresetName = "Awesome Patch");
-        void randomPreset(int currentPreset);
+        int randomPreset(int currentPreset);
     };
     //1) play notes according to velocity
     void playNoteWithVelocity(VirtualInstrument v1, int aNoteNumber = 64, int aVel = 112, int aChannel=1);
@@ -302,11 +302,11 @@ struct Fader
     int groupAssign = 1; //only one grpup at a time since we can't use arrays yet
 
     //1) adjust channel level
-    void adjustChannelLevel(int aChannelNumber, float aChannelLevel);
+    float adjustChannelLevel(int aChannelNumber, float aChannelLevel);
     //2) adjust group level
-    void adjustGroupLevel(int aGroupNumber, float aGroupLevel);
+    float adjustGroupLevel(int aGroupNumber, float aGroupLevel);
     //3) assign to a group
-    void groupAssaing(int aChannelNumber, int aGroupNumber);
+    int assignToGroup(int aChannelNumber, int aGroupNumber);
 
 };
 /*
@@ -336,11 +336,11 @@ struct EQ
     double isOn = true;
 
     //1) Toggle low cut on or off
-    void channelLowCutOn(int aChannel, bool alowCutIsOn = false);
+    bool channelLowCutOn(int aChannel, bool alowCutIsOn = false);
     //2) Adjust peak EQ values
     void channelPeakEqValues(int aChannel = 1, double eqGain= 0.0, double eqQ= 1.2, double eqFreq = 400);
     //3) Toggle EQ on or off 
-    void channelEqToggle(int aChannel = 10, bool eqIsOn = true);
+    bool channelEqToggle(int aChannel = 10, bool eqIsOn = true);
 };
 /*
 Thing 7)Sends
@@ -369,11 +369,11 @@ struct Send
     double mstrReturnLevel = -3.0; //in dBs
 
     //1) adjust level sent to monitors
-    void levelToMons(int aChannelNumber = 2, int aSendNumber = 4, bool aPlfOn = true, double aSentLevel = -12.0);
+    double levelToMons(int aChannelNumber = 2, int aSendNumber = 4, bool aPlfOn = true, double aSentLevel = -12.0);
     //2) adjust level sent to effects
-    void chnlSndToFXLevel(int aChannelNumber = 2, int aSendNumber = 4, bool aPlfOn = false, double aSentLevel = 0.0);
+    double chnlSndToFXLevel(int aChannelNumber = 2, int aSendNumber = 4, bool aPlfOn = false, double aSentLevel = 0.0);
     //3) determine if signal is pre or post fader level
-    void getPFLState(int aChannelNumber = 2, int aSendNumber = 4);
+    bool getPFLState(int aChannelNumber = 2, int aSendNumber = 4);
 };
 /*
 Thing 8)Matrices
@@ -404,9 +404,9 @@ struct Matrix
     //1) Receives signal from a group
     void receiveSignalFromGroup(int aGroupID = 4, double aGroupMtrxLvl = 0.0, bool aMtrxIsMuted = false);
     //2) adjust matrix output
-    void setMtrxLvl(int aMtrxID = 1, double aMatrixLevel = 0);
+    double setMtrxLvl(int aMtrxID = 1, double aMatrixLevel = 0);
     //3) Mute signal
-    void toggleMtrxMute(int aMtrxID = 1, bool aMtrxIsMuted = false);
+    bool toggleMtrxMute(int aMtrxID = 1, bool aMtrxIsMuted = false);
 };
 /*
 Thing 9)Meters
@@ -437,9 +437,9 @@ struct Meter
     //1) Display channel output level
     void diplayChnlLevel(int aChanelNumber, int aPixelCout);
     //2) Display channel clipping
-    void getIsClipping(int aChannelNumber);
+    bool getIsClipping(int aChannelNumber);
     //3) Diplay soloed channel signal
-    void displaySoloed(int aChannelNumber);
+    double displaySoloed(int aChannelNumber);
 };
 /*
 Thing 10)Mixer
@@ -472,7 +472,7 @@ struct Mixer
     //2) Compress signal level
     void compressChannelSignal(int aChannelNumber, bool aCompressorOn = true);
     //3) Add effects
-    void addEffect(int ChannelNumber, char effecID = 'A'); //A=reverb B=Delay
+    char addEffect(int ChannelNumber, char effecID = 'A'); //A=reverb B=Delay
 
 };
 /*
