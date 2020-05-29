@@ -124,73 +124,73 @@ Thing 4) Keyboard
  */
 
 /*
-Thing 5)
+Thing 5)Faders
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Throw in mm
+    2) Fader channel number
+    3) Level in dBs
+    4) Fader response curve
+    5) group assign button
 3 things it can do:
-    1)
-    2)
-    3)
+    1) adjust channel level
+    2) adjust group level
+    3) assign to a group
  */
 
 /*
-Thing 6)
+Thing 6)EQs
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) 80 hz low cut button
+    2) low-shelf frequency setting
+    3) peak EQ gain setting
+    4) peak EQ q setting
+    5) On button
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Toggle low cut on or off
+    2) Adjust peak EQ values
+    3) Toggle EQ on or off 
  */
 
 /*
-Thing 7)
+Thing 7)Sends
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Send number
+    2) Channel Send level in dBs
+    3) PFL button
+    4) Master send level in dBs
+    5) Master return Level
 3 things it can do:
-    1)
-    2)
-    3)
+    1) adjust level sent to monitors
+    2) adjust level sent to effects
+    3) determine if signal is pre or post fader level
  */
 
 /*
-Thing 8)
+Thing 8)Matrices
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Matrix master level in dB
+    2) External input level 
+    3) Group numbers
+    4) Group matrix level in dB
+    5) Mute buttons
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Receives signal from a group
+    2) adjust matrix output
+    3) Mute signal
  */
 
 /*
-Thing 9)
+Thing 9)Meters
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Number of Pixels
+    2) Level in dBs
+    3) Channel number
+    4) Clip indicator
+    5) Clip hold button
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Display channel output level
+    2) Display channel clipping
+    3) Diplay soloed channel signal
  */
 
 /*
