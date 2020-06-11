@@ -82,17 +82,17 @@ struct Shoe
 
 bool Shoe::holdAnkleSteady( bool isSteady)
 {
-
+   return isSteady;
 }
 
 float Shoe::keepFeetWarm(float footTemperature)
 {
-
+    return footTemperature;
 }
 
 int Shoe::runFast(int runningSpeed)
 {
-
+    return runningSpeed;
 }
 
 struct PunchClock
@@ -131,15 +131,18 @@ struct PunchClock
 
 int PunchClock::punchInTime(Employee empA, int inTime)
 {
-
+    Employee employeeName = empA;
+    return inTime;
 }
-int PunchClock::breakTime(Employee empB,int breakTime)
+int PunchClock::breakTime(Employee empA,int breakTime)
 {
-
+    Employee employeeName = empA;
+    return breakTime;
 }
 int PunchClock::punchOutTime(Employee empA,int outTime)
 {
-
+    Employee employeeName = empA;
+    return outTime;
 }
 
 struct Fridge
@@ -165,15 +168,31 @@ struct Fridge
 
 bool Fridge::isFoodCool(bool produceCool, bool meatCool, bool dairyCool)
 {
-
+    if (produceCool && meatCool && dairyCool)
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
 }
 bool Fridge::isProduceCrisp(int celeryState, int carrotsState, int lettuceState)
 {
-
+    if((celeryState + carrotsState + lettuceState)/3 > 5)
+    {
+        return true;
+    }
+     else 
+    {
+        return false;
+    }
 }
 void Fridge::organiseInCategories(int produce, int meats, int dairy)
 {
-
+    int shelf1 = produce;
+    int shelf2 = meats;
+    int shelf3 = dairy;
 }
 
 struct Keyboard
@@ -211,16 +230,41 @@ struct Keyboard
 
 void Keyboard::playNoteWithVelocity(VirtualInstrument v1, int aNoteNumber, int aVel, int aChannel)
 {
-
+    int note[] = {aNoteNumber, aVel, aChannel};
+    if(aVel > 0)
+    {
+        v1.midiReceived = true;
+    }
+    else
+    {
+        v1.midiReceived = false;
+    }
+      
 }
 void Keyboard::sendCC(VirtualInstrument v2, int aCCNumber, int aCCValue, int aChannel)
 {
-
+    int note[] = {aCCNumber, aCCValue, aChannel};
+    if(aCCValue > 0)
+    {
+        v2.midiReceived = true;
+    }
+    else
+    {
+        v2.midiReceived = false;
+    }
 }
 
 int Keyboard::noteLength(int aNoteNumber, bool isHeld)
 {
-
+    if(isHeld)
+    {
+        return aNoteNumber;
+    }
+    else
+    {
+        return 0;
+    }
+    
 }
     
 struct Fader
@@ -237,25 +281,51 @@ struct Fader
     int groupAssign = 1; //only one grpup at a time since we can't use arrays yet
 
     //1) adjust channel level
-    float adjustChannelLevel(int aChannelNumber, float aChannelLevel);
+    double adjustChannelLevel(int aChannelNumber, double aChannelLevel);
     //2) adjust group level
-    float adjustGroupLevel(int aGroupNumber, float aGroupLevel);
+    double adjustGroupLevel(int aGroupNumber, double aGroupLevel);
     //3) assign to a group
     int assignToGroup(int aChannelNumber, int aGroupNumber);
 
 };
-float Fader::adjustChannelLevel(int aChannelNumber, float aChannelLevel)
+double Fader::adjustChannelLevel(int aChannelNumber, double aChannelLevel)
 {
-
+    double newLevel;
+    if(aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        newLevel = level + aChannelLevel;
+    }
+    else
+    {
+        newLevel = level;
+    }
+    return newLevel;
 }
-float Fader::adjustGroupLevel(int aGroupNumber, float aGroupLevel)
-{
 
+double Fader::adjustGroupLevel(int aGroupNumber, double aGroupLevel)
+{
+   double newLevel;
+    if(aGroupNumber >= 1 && aGroupNumber <= 4)
+    {
+        newLevel = aGroupLevel;
+    }
+    else
+    {
+        newLevel = 0;
+    }
+    return newLevel;
 }
 
 int Fader::assignToGroup(int aChannelNumber, int aGroupNumber)
 {
-
+    if(aChannelNumber >= 1 && aChannelNumber <= 32 && aGroupNumber >= 1 && aGroupNumber <= 4)
+    {
+        return aGroupNumber;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 struct EQ
@@ -281,17 +351,36 @@ struct EQ
 
 bool EQ::channelLowCutOn(int aChannel, bool alowCutIsOn)
 {
-
+    if(aChannel >= 1 && aChannel <= 32)
+    {
+        return alowCutIsOn;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void EQ::channelPeakEqValues(int aChannel, double eqGain, double eqQ, double eqFreq)
 {
-
+    if(aChannel >= 1 && aChannel <= 32)
+    {
+        peakGain = eqGain; 
+        peakQ = eqQ;
+        double peakFreq = eqFreq; 
+    }
 }
 
 bool EQ::channelEqToggle(int aChannel, bool eqIsOn)
 {
-    
+    if(aChannel >= 1 && aChannel <= 32)
+    {
+        return eqIsOn;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 
@@ -309,7 +398,7 @@ struct Send
     double mstrReturnLevel = -3.0; //in dBs
 
     //1) adjust level sent to monitors
-    double levelToMons(int aChannelNumber = 2, int aSendNumber = 4, bool aPlfOn = true, double aSentLevel = -12.0);
+    double levelToMons(int aChannelNumber = 2, int aSendNumber = 4,bool aPlfOn = true, double aSentLevel = -12.0);
     //2) adjust level sent to effects
     double chnlSndToFXLevel(int aChannelNumber = 2, int aSendNumber = 4, bool aPlfOn = false, double aSentLevel = 0.0);
     //3) determine if signal is pre or post fader level
@@ -318,17 +407,43 @@ struct Send
 
 double Send::levelToMons(int aChannelNumber, int aSendNumber, bool aPlfOn, double aSentLevel)
 {
-
+    double newLevel;
+    if( aChannelNumber >= 1 && aChannelNumber <= 32 && aSendNumber <= 1 && aSendNumber <= 6 && aPlfOn == true)
+    {
+        newLevel = chSendLevel + aSentLevel;
+    }
+    else
+    {
+        newLevel = chSendLevel;
+    }
+    return newLevel;
 }
 
 double Send::chnlSndToFXLevel(int aChannelNumber, int aSendNumber, bool aPlfOn, double aSentLevel)
 {
-
+    double newLevel;
+    if( aChannelNumber >= 1 && aChannelNumber <= 32 && aSendNumber <= 1 && aSendNumber <= 6 && aPlfOn == false)
+    {
+        newLevel = chSendLevel + aSentLevel;
+    }
+    else
+    {
+        newLevel = chSendLevel;
+    }
+    return newLevel;
 }
 //3) determine if signal is pre or post fader level
 bool Send::getPFLState(int aChannelNumber, int aSendNumber)
 {
-
+    bool aPlfOn = pflOn;
+     if( aChannelNumber >= 1 && aChannelNumber <= 32 && aSendNumber <= 1 && aSendNumber <= 6 && aPlfOn == true)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 
@@ -355,17 +470,39 @@ struct Matrix
 
 void Matrix::receiveSignalFromGroup(int aGroupID, double aGroupMtrxLvl, bool aMtrxIsMuted)
 {
-
+    if(aGroupID >= 1 && aGroupID <= 4 && aMtrxIsMuted == false)
+    {
+        groupMtrxLvl = aGroupMtrxLvl;
+    }
+    else
+    {
+        groupMtrxLvl = 0;
+    }
+    
 }
 
 double Matrix::setMtrxLvl(int aMtrxID, double aMatrixLevel)
 {
-
+    if(aMtrxID >= 1 && aMtrxID <= 8)
+    {
+        return aMatrixLevel;
+    }
+    else
+    {
+        return mtrxMstrLvl;
+    }
 }
 
 bool Matrix::toggleMtrxMute(int aMtrxID, bool aMtrxIsMuted)
 {
-
+    if(aMtrxID >= 1 && aMtrxID <= 8)
+    {
+        return aMtrxIsMuted;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 struct Meter
@@ -386,22 +523,40 @@ struct Meter
     //2) Display channel clipping
     bool getIsClipping(int aChannelNumber);
     //3) Diplay soloed channel signal
-    double displaySoloed(int aChannelNumber);
+    bool displaySoloed(int aChannelNumber);
 };
 
-void Meter::diplayChnlLevel(int aChanelNumber, int aPixelCout)
+void Meter::diplayChnlLevel(int aChannelNumber, int aPixelCout)
 {
-
+    if( aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        PixelCount = aPixelCout;
+    }
 }
 
 bool Meter::getIsClipping(int aChannelNumber)
 {
-
+    bool isClipping = clipping;
+    if( aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        return isClipping;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-double Meter::displaySoloed(int aChannelNumber)
+bool Meter::displaySoloed(int aChannelNumber)
 {
-
+    if( aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 struct Mixer
@@ -428,15 +583,31 @@ struct Mixer
 
 void Mixer::groupChannels(int channelA, int channelB, int channelC, int channelD)
 {
-
+    int channelSum = channelA+channelB+channelC+channelD;
 }
 void Mixer::compressChannelSignal(int aChannelNumber, bool aCompressorOn)
 {
+    bool isOn;
+    if( aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        isOn = aCompressorOn;
+    }
+    else
+    {
+        isOn = false;
+    }
 
 }
-char Mixer::addEffect(int ChannelNumber, char effecID)
+char Mixer::addEffect(int aChannelNumber, char effecID)
 {
-
+    if( aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        return effecID;
+    }
+    else
+    {
+        return 'a';
+    }
 }
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
