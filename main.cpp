@@ -18,8 +18,16 @@ Create a branch named Part2
 
 struct Limb
 {
-    void stepForward();
-    int stepSize();
+    int footStepSize = 1;
+    int stepCount;
+    void stepForward()
+    {
+        ++stepCount;
+    }
+    int stepSize()
+    {
+        return footStepSize;
+    }
 };
 
 struct Person
