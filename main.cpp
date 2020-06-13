@@ -1,3 +1,4 @@
+ #include<string>
  /*
  Project 3 - Part 2 / 5
  Video: Chapter 2 Part 6
@@ -15,10 +16,48 @@ Create a branch named Part2
     You'll need to insert the Person struct from the video in the space below.
  */
 
+struct Limb
+{
+    int footStepSize = 1;
+    int stepCount;
+    void stepForward()
+    {
+        ++stepCount;
+    }
+    int stepSize()
+    {
+        return footStepSize;
+    }
+};
 
+struct Person
+{
+    int age;
+    int height;
+    float hairLength;
+    unsigned int SATScore;
+    int distanceTraveled;
+    Limb leftFoot;
+    Limb rightFoot;
 
+    void run(int howFast, bool startWithLeftFoot);
+};
 
-
+void Person::run(int howFast, bool startWithLeftFoot)
+{
+    howFast += 1;
+    if(startWithLeftFoot == true)
+    {
+        leftFoot.stepForward();
+        rightFoot.stepForward();
+    }
+    else
+    {
+        rightFoot.stepForward();
+        leftFoot.stepForward();
+    }
+    distanceTraveled += rightFoot.stepSize() + leftFoot.stepSize();
+}
  /*
  2) provide implementations for the member functions you declared in your 10 user-defined types from the previous video outside of your UDT definitions.
     If you decide to write empty functions, you will need to fill them in with code in part 3.
@@ -28,21 +67,6 @@ Create a branch named Part2
  4) After you finish defining each type/function, click the [run] button.  Clear up any errors or warnings as best you can.
  */
 
-
-
-/*
-Thing 1) Shoe
-5 properties:
-    1) number of eyelets
-    2) sole material
-    3) tongue length
-    4) heel height
-    5) laces length
-3 things it can do:
-    1) holds ankle steady
-    2) keeps feet warm
-    3) makes you run faster
- */
 
 struct Shoe
 {
@@ -63,21 +87,22 @@ struct Shoe
     float keepFeetWarm(float footTemperature = 37.2f);
     //3) makes you run faster
     int runFast(int runningSpeed = 10);
-
 };
-/*
-Thing 2) Punch clock
-5 properties:
-    1) Time of day
-    2) Day of year
-    3) Punch button
-    4) punch card slit
-    5) lock
-3 things it can do:
-    1) log punch-in time
-    2) log break time
-    3) log punch-out time
- */
+
+bool Shoe::holdAnkleSteady( bool isSteady)
+{
+   return isSteady;
+}
+
+float Shoe::keepFeetWarm(float footTemperature)
+{
+    return footTemperature;
+}
+
+int Shoe::runFast(int runningSpeed)
+{
+    return runningSpeed;
+}
 
 struct PunchClock
 {
@@ -112,19 +137,22 @@ struct PunchClock
     //3) log punch-out time
     int punchOutTime(Employee empA,int outTime = 13);
 };
-/*
-Thing 3) Fridge
-5 properties:
-    1) number of Doors
-    2) number of Drawers
-    3) number of Shelves
-    4) temperature control
-    5) humidity control
-3 things it can do:
-    1) keeps food cool
-    2) keeps produce crisp
-    3) organise food in categories
- */
+
+int PunchClock::punchInTime(Employee empA, int inTime)
+{
+    Employee employeeName = empA;
+    return inTime;
+}
+int PunchClock::breakTime(Employee empA,int breakTime)
+{
+    Employee employeeName = empA;
+    return breakTime;
+}
+int PunchClock::punchOutTime(Employee empA,int outTime)
+{
+    Employee employeeName = empA;
+    return outTime;
+}
 
 struct Fridge
 {
@@ -146,19 +174,37 @@ struct Fridge
     //3) organise food in categories
     void organiseInCategories(int produce = 3, int meats = 1, int dairy = 6);
 }; 
-/*
-Thing 4) Keyboard
-5 properties:
-    1) number of notes
-    2) number of rotary encoders
-    3) pitch bend
-    4) mod wheel
-    5) octave shift buttons
-3 things it can do:
-    1) play notes according to velocity
-    2) send control change messages
-    3) determine note length according to time held
- */
+
+bool Fridge::isFoodCool(bool produceCool, bool meatCool, bool dairyCool)
+{
+    if (produceCool && meatCool && dairyCool)
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
+}
+bool Fridge::isProduceCrisp(int celeryState, int carrotsState, int lettuceState)
+{
+    if((celeryState + carrotsState + lettuceState)/3 > 5)
+    {
+        return true;
+    }
+     else 
+    {
+        return false;
+    }
+}
+void Fridge::organiseInCategories(int produce, int meats, int dairy)
+{
+    int shelf1 = produce;
+    int shelf2 = meats;
+    int shelf3 = dairy;
+    shelf1=shelf2+shelf3;
+}
+
 struct Keyboard
 {
     //1) number of notes
@@ -191,19 +237,49 @@ struct Keyboard
     //3) determine note length according to time held
     int noteLength(int aNoteNumber = 64, bool isHeld = false);
 };
-/*
-Thing 5)Faders
-5 properties:
-    1) Throw in mm
-    2) Fader channel number
-    3) Level in dBs
-    4) Fader response curve
-    5) group assign button
-3 things it can do:
-    1) adjust channel level
-    2) adjust group level
-    3) assign to a group
- */
+
+void Keyboard::playNoteWithVelocity(VirtualInstrument v1, int aNoteNumber, int aVel, int aChannel)
+{
+    int note[] = {aNoteNumber, aVel, aChannel};
+    
+    if(aVel > 0)
+    {
+        v1.midiReceived = true;
+        note[0] = 0;
+    }
+    else
+    {
+        v1.midiReceived = false;
+    }
+      
+}
+void Keyboard::sendCC(VirtualInstrument v2, int aCCNumber, int aCCValue, int aChannel)
+{
+    int cc[] = {aCCNumber, aCCValue, aChannel};
+    if(aCCValue > 0)
+    {
+        v2.midiReceived = true;
+        cc[0] = 0;
+    }
+    else
+    {
+        v2.midiReceived = false;
+    }
+}
+
+int Keyboard::noteLength(int aNoteNumber, bool isHeld)
+{
+    if(isHeld)
+    {
+        return aNoteNumber;
+    }
+    else
+    {
+        return 0;
+    }
+    
+}
+    
 struct Fader
 {
     //1) Throw in mm
@@ -218,26 +294,53 @@ struct Fader
     int groupAssign = 1; //only one grpup at a time since we can't use arrays yet
 
     //1) adjust channel level
-    float adjustChannelLevel(int aChannelNumber, float aChannelLevel);
+    double adjustChannelLevel(int aChannelNumber, double aChannelLevel);
     //2) adjust group level
-    float adjustGroupLevel(int aGroupNumber, float aGroupLevel);
+    double adjustGroupLevel(int aGroupNumber, double aGroupLevel);
     //3) assign to a group
     int assignToGroup(int aChannelNumber, int aGroupNumber);
 
 };
-/*
-Thing 6)EQs
-5 properties:
-    1) 80 hz low cut button
-    2) low-shelf frequency setting
-    3) peak EQ gain setting
-    4) peak EQ q setting
-    5) On button
-3 things it can do:
-    1) Toggle low cut on or off
-    2) Adjust peak EQ values
-    3) Toggle EQ on or off 
- */
+double Fader::adjustChannelLevel(int aChannelNumber, double aChannelLevel)
+{
+    double newLevel;
+    if(aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        newLevel = level + aChannelLevel;
+    }
+    else
+    {
+        newLevel = level;
+    }
+    return newLevel;
+}
+
+double Fader::adjustGroupLevel(int aGroupNumber, double aGroupLevel)
+{
+   double newLevel;
+    if(aGroupNumber >= 1 && aGroupNumber <= 4)
+    {
+        newLevel = aGroupLevel;
+    }
+    else
+    {
+        newLevel = 0;
+    }
+    return newLevel;
+}
+
+int Fader::assignToGroup(int aChannelNumber, int aGroupNumber)
+{
+    if(aChannelNumber >= 1 && aChannelNumber <= 32 && aGroupNumber >= 1 && aGroupNumber <= 4)
+    {
+        return aGroupNumber;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 struct EQ
 {
     //1) 80 hz low cut button
@@ -258,19 +361,43 @@ struct EQ
     //3) Toggle EQ on or off 
     bool channelEqToggle(int aChannel = 10, bool eqIsOn = true);
 };
-/*
-Thing 7)Sends
-5 properties:
-    1) Send number
-    2) Channel Send level in dBs
-    3) PFL button
-    4) Master send level in dBs
-    5) Master return Level
-3 things it can do:
-    1) adjust level sent to monitors
-    2) adjust level sent to effects
-    3) determine if signal is pre or post fader level
- */
+
+bool EQ::channelLowCutOn(int aChannel, bool alowCutIsOn)
+{
+    if(aChannel >= 1 && aChannel <= 32)
+    {
+        return alowCutIsOn;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void EQ::channelPeakEqValues(int aChannel, double eqGain, double eqQ, double eqFreq)
+{
+    if(aChannel >= 1 && aChannel <= 32)
+    {
+        peakGain = eqGain; 
+        peakQ = eqQ;
+        double peakFreq = eqFreq;
+        peakFreq += 0.1;
+    }
+}
+
+bool EQ::channelEqToggle(int aChannel, bool eqIsOn)
+{
+    if(aChannel >= 1 && aChannel <= 32)
+    {
+        return eqIsOn;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
 struct Send
 {
     //1) Send number
@@ -285,25 +412,55 @@ struct Send
     double mstrReturnLevel = -3.0; //in dBs
 
     //1) adjust level sent to monitors
-    double levelToMons(int aChannelNumber = 2, int aSendNumber = 4, bool aPlfOn = true, double aSentLevel = -12.0);
+    double levelToMons(int aChannelNumber = 2, int aSendNumber = 4,bool aPlfOn = true, double aSentLevel = -12.0);
     //2) adjust level sent to effects
     double chnlSndToFXLevel(int aChannelNumber = 2, int aSendNumber = 4, bool aPlfOn = false, double aSentLevel = 0.0);
     //3) determine if signal is pre or post fader level
     bool getPFLState(int aChannelNumber = 2, int aSendNumber = 4);
 };
-/*
-Thing 8)Matrices
-5 properties:
-    1) Matrix master level in dB
-    2) External input level 
-    3) Group numbers
-    4) Group matrix level in dB
-    5) Mute buttons
-3 things it can do:
-    1) Receives signal from a group
-    2) adjust matrix output
-    3) Mute signal
- */
+
+double Send::levelToMons(int aChannelNumber, int aSendNumber, bool aPlfOn, double aSentLevel)
+{
+    double newLevel;
+    if( aChannelNumber >= 1 && aChannelNumber <= 32 && aSendNumber <= 1 && aSendNumber <= 6 && aPlfOn == true)
+    {
+        newLevel = chSendLevel + aSentLevel;
+    }
+    else
+    {
+        newLevel = chSendLevel;
+    }
+    return newLevel;
+}
+
+double Send::chnlSndToFXLevel(int aChannelNumber, int aSendNumber, bool aPlfOn, double aSentLevel)
+{
+    double newLevel;
+    if( aChannelNumber >= 1 && aChannelNumber <= 32 && aSendNumber <= 1 && aSendNumber <= 6 && aPlfOn == false)
+    {
+        newLevel = chSendLevel + aSentLevel;
+    }
+    else
+    {
+        newLevel = chSendLevel;
+    }
+    return newLevel;
+}
+//3) determine if signal is pre or post fader level
+bool Send::getPFLState(int aChannelNumber, int aSendNumber)
+{
+    bool aPlfOn = pflOn;
+     if( aChannelNumber >= 1 && aChannelNumber <= 32 && aSendNumber <= 1 && aSendNumber <= 6 && aPlfOn == true)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
 struct Matrix
 {
     //1) Matrix master level in dB
@@ -324,19 +481,44 @@ struct Matrix
     //3) Mute signal
     bool toggleMtrxMute(int aMtrxID = 1, bool aMtrxIsMuted = false);
 };
-/*
-Thing 9)Meters
-5 properties:
-    1) Number of Pixels
-    2) Level in dBs
-    3) Channel number
-    4) Clip indicator
-    5) Clip hold button
-3 things it can do:
-    1) Display channel output level
-    2) Display channel clipping
-    3) Diplay soloed channel signal
- */
+
+void Matrix::receiveSignalFromGroup(int aGroupID, double aGroupMtrxLvl, bool aMtrxIsMuted)
+{
+    if(aGroupID >= 1 && aGroupID <= 4 && aMtrxIsMuted == false)
+    {
+        groupMtrxLvl = aGroupMtrxLvl;
+    }
+    else
+    {
+        groupMtrxLvl = 0;
+    }
+    
+}
+
+double Matrix::setMtrxLvl(int aMtrxID, double aMatrixLevel)
+{
+    if(aMtrxID >= 1 && aMtrxID <= 8)
+    {
+        return aMatrixLevel;
+    }
+    else
+    {
+        return mtrxMstrLvl;
+    }
+}
+
+bool Matrix::toggleMtrxMute(int aMtrxID, bool aMtrxIsMuted)
+{
+    if(aMtrxID >= 1 && aMtrxID <= 8)
+    {
+        return aMtrxIsMuted;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 struct Meter
 {
     //1) Number of Pixels
@@ -355,21 +537,42 @@ struct Meter
     //2) Display channel clipping
     bool getIsClipping(int aChannelNumber);
     //3) Diplay soloed channel signal
-    double displaySoloed(int aChannelNumber);
+    bool displaySoloed(int aChannelNumber);
 };
-/*
-Thing 10)Mixer
-5 properties:
-    1) Faders
-    2) EQs
-    3) Sends
-    4) Matrices
-    5) Meters
-3 things it can do:
-    1) Group channels
-    2) Compress signal level
-    3) Add effects
- */
+
+void Meter::diplayChnlLevel(int aChannelNumber, int aPixelCout)
+{
+    if( aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        PixelCount = aPixelCout;
+    }
+}
+
+bool Meter::getIsClipping(int aChannelNumber)
+{
+    bool isClipping = clipping;
+    if( aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        return isClipping;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Meter::displaySoloed(int aChannelNumber)
+{
+    if( aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 struct Mixer
 {
     //1) Faders
@@ -391,6 +594,36 @@ struct Mixer
     char addEffect(int ChannelNumber, char effecID = 'A'); //A=reverb B=Delay
 
 };
+
+void Mixer::groupChannels(int channelA, int channelB, int channelC, int channelD)
+{
+    int channelSum = channelA+channelB+channelC+channelD;
+    channelSum += 0;
+}
+void Mixer::compressChannelSignal(int aChannelNumber, bool aCompressorOn)
+{
+    bool isOn;
+    if( aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        isOn = aCompressorOn;
+    }
+    else
+    {
+        isOn = false;
+    }
+
+}
+char Mixer::addEffect(int aChannelNumber, char effecID)
+{
+    if( aChannelNumber >= 1 && aChannelNumber <= 32)
+    {
+        return effecID;
+    }
+    else
+    {
+        return 'a';
+    }
+}
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
