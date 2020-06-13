@@ -45,6 +45,7 @@ struct Person
 
 void Person::run(int howFast, bool startWithLeftFoot)
 {
+    howFast += 1;
     if(startWithLeftFoot == true)
     {
         leftFoot.stepForward();
@@ -201,6 +202,7 @@ void Fridge::organiseInCategories(int produce, int meats, int dairy)
     int shelf1 = produce;
     int shelf2 = meats;
     int shelf3 = dairy;
+    shelf1=shelf2+shelf3;
 }
 
 struct Keyboard
@@ -239,9 +241,11 @@ struct Keyboard
 void Keyboard::playNoteWithVelocity(VirtualInstrument v1, int aNoteNumber, int aVel, int aChannel)
 {
     int note[] = {aNoteNumber, aVel, aChannel};
+    
     if(aVel > 0)
     {
         v1.midiReceived = true;
+        note[0] = 0;
     }
     else
     {
@@ -251,10 +255,11 @@ void Keyboard::playNoteWithVelocity(VirtualInstrument v1, int aNoteNumber, int a
 }
 void Keyboard::sendCC(VirtualInstrument v2, int aCCNumber, int aCCValue, int aChannel)
 {
-    int note[] = {aCCNumber, aCCValue, aChannel};
+    int cc[] = {aCCNumber, aCCValue, aChannel};
     if(aCCValue > 0)
     {
         v2.midiReceived = true;
+        cc[0] = 0;
     }
     else
     {
@@ -375,7 +380,8 @@ void EQ::channelPeakEqValues(int aChannel, double eqGain, double eqQ, double eqF
     {
         peakGain = eqGain; 
         peakQ = eqQ;
-        double peakFreq = eqFreq; 
+        double peakFreq = eqFreq;
+        peakFreq += 0.1;
     }
 }
 
@@ -592,6 +598,7 @@ struct Mixer
 void Mixer::groupChannels(int channelA, int channelB, int channelC, int channelD)
 {
     int channelSum = channelA+channelB+channelC+channelD;
+    channelSum += 0;
 }
 void Mixer::compressChannelSignal(int aChannelNumber, bool aCompressorOn)
 {
